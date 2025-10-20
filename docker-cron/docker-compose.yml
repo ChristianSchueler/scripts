@@ -1,0 +1,12 @@
+services:
+  cronjob:
+    build:
+      context: .
+      dockerfile: Dockerfile
+    container_name: crontest
+    restart: unless-stopped
+    logging:
+      driver: "json-file"
+      options:
+        max-size: "10m"
+        max-file: "3"

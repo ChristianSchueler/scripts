@@ -1,0 +1,3 @@
+* * * * * echo "Cron Job in one line" >> /var/log/cron.log 2>&1
+
+* * * * * /home/script.sh

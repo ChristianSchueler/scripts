@@ -1,0 +1,17 @@
+FROM ubuntu:latest
+
+RUN apt-get update && apt-get -y install cron
+
+# Copy cronjob file to the cron.d directory and give execution rights on the cron job
+COPY cronjob /home/
+COPY script.sh /home/
+RUN chmod +x /home/script.sh
+
+# Apply cron job
+RUN crontab -u root /home/cronjob
+ 
+# Create the log file to be able to run tail
+RUN touch /var/log/cron.log
+ 
+# Run the command on container startup
+CMD ["cron", "-f"]
