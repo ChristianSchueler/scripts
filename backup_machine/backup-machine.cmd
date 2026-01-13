@@ -48,7 +48,7 @@ set HH=%dt:~8,2%
 set Min=%dt:~10,2%
 set Sec=%dt:~12,2%
 set TIME_STAMP=%YYYY%-%MM%-%DD%_%HH%-%Min%-%Sec%
-set TIME_STAMP_READABLE=%YYYY%-%MM%-%DD% %HH%:%Min%:%Sec%
+set TIME_STAMP_READABLE=%YYYY%-%MM%-%DD% %HH%h%Min%m%Sec%s
 
 rem --------------------------------------------------------------------------------------------------
 rem ------------------------------------------ all parameters ----------------------------------------
@@ -131,9 +131,7 @@ rem ----------------------------------------------------------------------------
 
 :CaptureDiskToGoogle
 echo Capturing image and uploading to Google Cloud...
-call "%WIMLIB_PATH%\wimcapture" "%BACKUP_VOLUME%" - "%BACKUP_NAME%" --snapshot | ^
-  "%RCLONE_PATH%\rclone" --config="%BASE_PATH%rclone.conf" rcat ^
-  "%BACKUP_RCLONE_STORAGE%:%BACKUP_PATH%/%BACKUP_IMAGE%"
+call "%WIMLIB_PATH%\wimcapture" "%BACKUP_VOLUME%" - "%BACKUP_NAME%" --snapshot | "%RCLONE_PATH%\rclone" --config="%BASE_PATH%rclone.conf" rcat "%BACKUP_RCLONE_STORAGE%:%BACKUP_PATH%/%BACKUP_IMAGE%"
 echo Done.
 goto :eof
 
